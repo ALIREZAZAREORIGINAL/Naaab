@@ -1,0 +1,107 @@
+{% extends "Base.html" %}
+{% load static %}
+{% block content %}
+<style>
+
+    .search-container {
+        background: linear-gradient(135deg, #6d4c41, #3e2723);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    
+    .search-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .search-input {
+        width: 300px;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        appearance: textfield;        /* نسخه استاندارد */
+        -webkit-appearance: textfield; /* پیش‌وند وِندور برای مرورگرهای وب‌کیت */
+        -moz-appearance: textfield;   /* پیش‌وند وِندور برای مرورگرهای موزیلا */
+    }
+    
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .search-input:focus {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .search-button {
+        padding: 15px 20px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        appearance: button;           /* نسخه استاندارد */
+        -webkit-appearance: button;   /* پیش‌وند وِندور برای مرورگرهای وب‌کیت */
+        -moz-appearance: button;      /* پیش‌وند وِندور برای مرورگرهای موزیلا */
+    }
+    
+    .search-button:hover {
+        background-color: #45a049;
+        box-shadow: 0 0 10px rgba(70, 162, 73, 0.5);
+    }
+    
+    .search-button:active {
+        background-color: #367c39;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        transform: translateY(2px);
+    }
+    
+</style>
+<!-- جستجو -->
+<div class="search-container text-center py-3">
+    <form method="GET" action="{% url 'search' %}" class="search-form">
+        <input class="search-input" type="search" placeholder="جستجو..." aria-label="Search" name="query">
+        <button class="search-button" type="submit">جستجو</button>
+    </form>
+</div>
+
+<!-- Section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <!-- Product Example -->
+            {% for item in categories %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image -->
+                    <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+                    <!-- Product details -->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name -->
+                            <h5 class="fw-bolder">{{item.name}}</h5>
+                            <!-- Product price -->
+                        </div>
+                    </div>
+                    <!-- Product actions -->
+                    <div class="text-center">
+                        <a class="btn btn-outline-dark mt-auto" href="{% url 'category_products' item.id %}">مشاهده</a> <br></br>
+                    </div>                    
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Repeat similar products as needed -->
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "Base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(135deg, #6d4c41, #3e2723);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">درباره کافه ناب</h1>
+            <p class="lead fw-normal text-white-50 mb-0">تجربه‌ای متفاوت، محیطی دلنشین</p>
+        </div>
+    </div>
+</header>
+
+<!-- About Section -->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="img-fluid rounded mb-4 mb-md-0" src="{% static 'images/about-us.jpg' %}" alt="About Us">
+            </div>
+            <div class="col-md-6">
+                <h2 class="fw-bolder mb-4">درباره کافه ناب</h2>
+                <p>کافه ناب با هدف ایجاد فضایی آرامش‌بخش و دلنشین برای شما عزیزان تأسیس شده است. ما با ارائه منویی خاص و متفاوت، به دنبال تجربه‌ای تازه برای دوستداران کافه هستیم. در کافه ناب، از مواد اولیه‌ی تازه و با کیفیت استفاده می‌شود و تیم ما با نهایت دقت و عشق، تمامی نوشیدنی‌ها و خوراکی‌ها را برای شما آماده می‌کند.</p>
+                <p>از فضای گرم و صمیمی ما لذت ببرید و لحظاتی خاص را در کنار دوستان و عزیزانتان سپری کنید. کافه ناب با فضایی مدرن و خدمات بی‌نظیر، آماده است تا لحظاتی به‌یادماندنی را برای شما رقم بزند.</p>
+                <a class="btn btn-dark btn-lg mt-3" href="#!">بیشتر بدانید</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bolder">تیم ما</h2>
+            <p class="lead">آشنایی با اعضای حرفه‌ای و پرانرژی کافه ناب</p>
+        </div>
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'images/team-member1.jpg' %}" alt="Team Member">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bolder">نام </h5>
+                        <p class="text-muted">مدیر کافه</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'images/team-member2.jpg' %}" alt="Team Member">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bolder">نام</h5>
+                        <p class="text-muted">بارستا حرفه‌ای</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{% static 'images/team-member3.jpg' %}" alt="Team Member">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bolder">نام </h5>
+                        <p class="text-muted">آشپز تخصصی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

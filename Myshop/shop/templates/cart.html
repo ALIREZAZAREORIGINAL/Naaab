@@ -1,0 +1,101 @@
+{% extends "Base.html" %}
+{% load custom_filters %}
+{% block content %}
+
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(135deg, #6d4c41, #3e2723);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">سبد خرید شما</h1>
+            <p class="lead fw-normal text-white-50 mb-0">محصولات انتخابی شما</p>
+        </div>
+    </div>
+</header>
+
+<!-- Cart Section -->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8" id="invoice"> <!-- آیتم‌ها در این بخش چاپ می‌شوند -->
+                {% if cart_items and cart_items|length > 0 %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">محصول</th>
+                            <th scope="col">قیمت واحد</th>
+                            <th scope="col">تعداد</th>
+                            <th scope="col">جمع</th>
+                            <th scope="col">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.Name }}</td>
+                            <td>{{ item.product.Price|floatformat:0 }} تومان</td>
+                            <td>
+                                <form action="{% url 'update_cart' item.product.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control d-inline-block" style="width: 80px;">
+                                    <button type="submit" class="btn btn-sm btn-primary">بروزرسانی</button>
+                                </form>
+                            </td>
+                            <td>{{ item.total_price|floatformat:0 }} تومان</td>
+                            <td>
+                                <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-sm btn-danger">حذف</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="table-secondary">
+                            <td colspan="3" class="text-end"><strong>جمع کل:</strong></td>
+                            <td><strong>{{ total_price|floatformat:0 }} تومان</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-center text-muted">سبد خرید شما خالی است.</p>
+                {% endif %}
+            </div>
+            
+            <!-- Cart Summary -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">خلاصه سفارش</h5>
+                        {% if cart_items and cart_items|length > 0 %}
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                جمع کل:
+                                <span>{{ total_price|floatformat:0 }} تومان</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-dark btn-block">تسویه حساب</a>
+                        <button onclick="printInvoice()" class="btn btn-secondary btn-block mt-2">چاپ فاکتور</button>
+                        {% else %}
+                        <p class="text-muted">هیچ سفارشی برای خلاصه نمایش داده نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<form action="{% url 'checkout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">پرداخت آزمایشی </button>
+</form>
+
+<script>
+    function printInvoice() {
+        var content = document.getElementById('invoice').innerHTML; // گرفتن محتوای بخش فاکتور
+        var originalContent = document.body.innerHTML; // ذخیره محتوای اصلی
+        document.body.innerHTML = content; // جایگزینی محتوا
+        window.print(); // چاپ
+        document.body.innerHTML = originalContent; // بازگرداندن محتوا
+    }
+</script>
+
+{% endblock %}

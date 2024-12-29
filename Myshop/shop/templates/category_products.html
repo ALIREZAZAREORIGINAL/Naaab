@@ -1,0 +1,54 @@
+{% extends "Base.html" %}
+{% load static custom_filters %}
+{% block content %}
+
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(135deg, #6d4c41, #3e2723);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">دسته‌بندی: {{ category.name }}</h1>
+            <p class="lead fw-normal text-white-50 mb-0">محصولات مرتبط با این دسته‌بندی را مشاهده کنید</p>
+        </div>
+    </div>
+</header>
+
+<!-- نمایش پیام‌ها -->
+{% if messages %}
+<div class="container mt-4">
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="بستن"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Products Section -->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            {% if products %}
+            {% for product in products %}
+            <div class="col-md-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top" src="{{ product.Picture.url }}" alt="{{ product.Name }}">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bolder">{{ product.Name }}</h5>
+                        <p class="text-muted">{{ product.Price|number_format }} تومان</p>
+                        <p class="text-muted">{{ product.Description }}</p>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark btn-sm mt-3">افزودن به سبد خرید</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="text-center">
+                <p>هیچ محصولی در این دسته‌بندی یافت نشد.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
